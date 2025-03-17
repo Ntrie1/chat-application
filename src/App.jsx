@@ -1,14 +1,29 @@
+import { useRef, useState } from 'react'
 import './App.css'
 import Auth from './components/Auth'
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 function App() {
+  const [isAuth, setIsAuth] = useState(cookies.get('auth-token'));
+  const [room, setRoom] = useState(null);
+  const roomInputRef = useRef(null);
 
-  return (
-    <>
-      <div>Hello world</div>
-      <Auth/>
-    </>
-  )
+  if(!isAuth){
+    return (
+      <>
+        <Auth/>
+      </>
+    )
+  }
+
+  return <div>{room ? <div>chat component</div> : <div className='room'> 
+  <label> Enter room name</label>
+  <input ref={roomInputRef} />
+  <button onClick={() => setRoom(roomInputRef.current.value)}>enter chat</button>
+  </div> }</div>
+ 
 }
 
 export default App
