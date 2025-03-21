@@ -13,7 +13,7 @@ function App() {
   if(!isAuth){
     return (
       <>
-        <Auth/>
+        <Auth setIsAuth={setIsAuth}/>
       </>
     )
   }
