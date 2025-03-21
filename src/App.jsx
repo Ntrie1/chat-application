@@ -2,6 +2,7 @@ import { useRef, useState } from 'react'
 import './App.css'
 import Auth from './components/Auth'
 import Cookies from 'universal-cookie';
+import Chat from './components/Chat';
 
 const cookies = new Cookies();
 
@@ -18,7 +19,7 @@ function App() {
     )
   }
 
-  return <div>{room ? <div>chat component</div> : <div className='room'> 
+  return <div>{room ? <div> <Chat /></div> : <div className='room'> 
   <label> Enter room name</label>
   <input ref={roomInputRef} />
   <button onClick={() => setRoom(roomInputRef.current.value)}>enter chat</button>
