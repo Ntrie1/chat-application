@@ -9,19 +9,21 @@ export default function Chat(props) {
     const [messages, setMessages] = useState([]);
 
     const messagesRef = collection(db, 'messages');
-    
+
 
     useEffect(() => {
         const queryMessages = query(messagesRef, where("room", "==", room));
-        
-        onSnapshot(queryMessages, (snapshot) => {
+
+        const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
             let messages = [];
             snapshot.forEach((doc) => {
-                messages.push({...doc.data(), id: doc.id});
+                messages.push({ ...doc.data(), id: doc.id });
 
             });
             setMessages(messages);
         });
+
+        return () => unsubscribe();
     }, [])
 
     const handleSubmitForm = async (e) => {
@@ -41,7 +43,7 @@ export default function Chat(props) {
 
     return (
         <div className='chat-app'>
-            <div>{messages.map((message) => <h1>{message.text}</h1> )}</div>
+            <div>{messages.map((message) => <h1>{message.text}</h1>)}</div>
             <form className='new-message-form' onSubmit={handleSubmitForm}>
                 <input
                     className='new-message-input'
