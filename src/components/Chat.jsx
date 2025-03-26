@@ -12,7 +12,10 @@ export default function Chat(props) {
 
 
     useEffect(() => {
-        const queryMessages = query(messagesRef, where("room", "==", room, orderBy("createdAt")));
+        const queryMessages = query(
+            messagesRef,
+            where("room", "==", room),
+            orderBy("createdAt"));
 
         const unsubscribe = onSnapshot(queryMessages, (snapshot) => {
             let messages = [];
@@ -54,7 +57,7 @@ export default function Chat(props) {
                     <div className='message' key={message.id}>
                         <span className='user'>{message.user}</span>
                         {message.text}
-                        *
+
                     </div>
                 )}
             </div>
